@@ -2,9 +2,9 @@
 import { endpoints } from "./api/config";
 import { useGetDataByCategory } from "./api/api-hooks";
 import { Banner } from "./components/Banner/Banner";
-import { CardsList } from "./components/CardsListSection/CardsList";
 import { Preloader } from "./components/Preloader/Preloader";
 import { Promo } from "./components/Promo/Promo";
+import { CardsListSection } from "./components/CardsListSection/CardsListSection";
 
 export default function Home() {
   const popularGames = useGetDataByCategory(endpoints.games, "popular");
