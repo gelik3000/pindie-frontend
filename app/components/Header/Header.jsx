@@ -1,27 +1,31 @@
 "use client";
+
+import { usePathname } from "next/navigation";
+import { useState} from "react";
 import Styles from "./Header.module.css";
-import Link from "next/link";
-import { useState } from "react";
 import { Overlay } from "../Overlay/Overlay";
 import { Popup } from "../Popup/Popup";
 import { AuthForm } from "../AuthForm/AuthForm";
-import { usePathname } from "next/navigation";
+import Link from "next/link";
 import { useStore } from "@/app/store/app-store";
 
 export const Header = () => {
   const [popupIsOpened, setPopupIsOpened] = useState(false);
   const authContext = useStore();
+
   const openPopup = () => {
     setPopupIsOpened(true);
   };
   const closePopup = () => {
     setPopupIsOpened(false);
   };
-  const pathname = usePathname();
+
   const handleLogout = () => {
-    authContext.logout();
-    
+    authContext.logout()
   };
+
+  const pathname = usePathname();
+
   return (
     <header className={Styles["header"]}>
       {pathname === "/" ? (
@@ -80,7 +84,7 @@ export const Header = () => {
                 pathname === "/runners" ? Styles["menu__link_active"] : ""
               }`}
             >
-              Ранеры
+              Раннеры
             </Link>
           </li>
           <li className={Styles["menu__item"]}>
@@ -105,18 +109,20 @@ export const Header = () => {
           </li>
         </ul>
         <div className={Styles["auth"]}>
-          {authContext.isAuth ? (
-          <button className={Styles["auth__button"]} onClick={handleLogout}>
-            Выйти
-          </button>
-          ) : (<button className={Styles["auth__button"]} onClick={openPopup}>
-          Войти
-        </button>)}
+          {!authContext.isAuth ? (
+            <button className={Styles["auth__button"]} onClick={openPopup}>
+              Войти
+            </button>
+          ) : (
+            <button className={Styles["auth__button"]} onClick={handleLogout}>
+              Выйти
+            </button>
+          )}
         </div>
       </nav>
       <Overlay popupIsOpened={popupIsOpened} closePopup={closePopup} />
       <Popup popupIsOpened={popupIsOpened} closePopup={closePopup}>
-        <AuthForm close={closePopup} />
+        <AuthForm close={closePopup}/>
       </Popup>
     </header>
   );

@@ -1,10 +1,10 @@
 "use client";
 import { endpoints } from "./api/config";
-import { useGetDataByCategory } from "./api/api-hooks";
 import { Banner } from "./components/Banner/Banner";
 import { Preloader } from "./components/Preloader/Preloader";
 import { Promo } from "./components/Promo/Promo";
 import { CardsListSection } from "./components/CardsListSection/CardsListSection";
+import { useGetDataByCategory } from "./api/api-hooks";
 
 export default function Home() {
   const popularGames = useGetDataByCategory(endpoints.games, "popular");
